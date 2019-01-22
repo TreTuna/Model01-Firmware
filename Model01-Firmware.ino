@@ -8,9 +8,7 @@
 #include "Kaleidoscope-FocusSerial.h"
 #include "Kaleidoscope-Macros.h"
 #include "Kaleidoscope-LEDControl.h"
-#include "Kaleidoscope-NumPad.h"
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
-#include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "Kaleidoscope-Model01-TestMode.h"
 #include "Kaleidoscope-HostPowerManagement.h"
 #include "Kaleidoscope-MagicCombo.h"
@@ -508,10 +506,6 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   }
 }
 
-static kaleidoscope::LEDSolidColor solidWhite(160, 160, 160);
-static kaleidoscope::LEDSolidColor solidGreen(0, 160, 0);
-static kaleidoscope::LEDSolidColor solidIndigo(0, 0, 170);
-
 void toggleLedsOnSuspendResume(kaleidoscope::HostPowerManagement::Event event) {
   switch (event) {
   case kaleidoscope::HostPowerManagement::Suspend:
@@ -553,8 +547,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
   TestMode,
   LEDControl,
   LEDOff,
-  solidGreen, solidWhite, solidIndigo,
-  NumPad,
   Macros,
   HostPowerManagement,
   MagicCombo,
@@ -573,7 +565,6 @@ void setup() {
   Serial.begin(9600);
   Kaleidoscope.setup();
   ActiveModColorEffect.highlight_color = CRGB(0x00, 0xff, 0xff);
-  NumPad.numPadLayer = NUMPAD;
   LEDOff.activate();
   EEPROMKeymap.setup(5, EEPROMKeymap.Mode::EXTEND);
   ColormapEffect.max_layers(3 + 5);
