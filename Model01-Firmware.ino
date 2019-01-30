@@ -16,9 +16,6 @@
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Escape-OneShot.h"
 #include "Kaleidoscope-LED-ActiveModColor.h"
-#include "Kaleidoscope-ShapeShifter.h"
-#include "Kaleidoscope-TopsyTurvy.h"
-#include "Kaleidoscope-TapDance.h"
 #include "Kaleidoscope-Colormap.h"
 #include "Kaleidoscope-LED-Palette-Theme.h"
 
@@ -49,14 +46,14 @@ KEYMAPS(
   #if defined(PRIMARY_KEYMAP)
     [PRIMARY] = KEYMAP_STACKED(
       ___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-      Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, TD(0),
+      Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_LeftBracket,
       Key_Tab,      Key_A, Key_S, Key_D, Key_F, Key_G,
       Key_Escape,   Key_Z, Key_X, Key_C, Key_V, Key_B, M(MACRO_HYPER),
       OSM(LeftControl), OSM(LeftAlt), OSM(LeftGui), OSM(LeftShift),
       ShiftToLayer(FUNCTION),
 
       Key_Backslash,      Key_6, Key_7, Key_8,     Key_9,         Key_0,     LockLayer(NUMPAD),
-      TD(1),              Key_Y, Key_U, Key_I,     Key_O,         Key_P,     Key_Equals,
+      Key_RightBracket,   Key_Y, Key_U, Key_I,     Key_O,         Key_P,     Key_Equals,
       Key_H,              Key_J, Key_K, Key_L,     Key_Semicolon, Key_Quote,
       M(MACRO_FAT_ARROW), Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash, Key_Minus,
       OSM(RightGui), Key_Enter, Key_Spacebar, Key_Backspace,
@@ -87,14 +84,14 @@ KEYMAPS(
 
     [FUNCTION] = KEYMAP_STACKED(
       ___, Key_F1,             Key_F2,            Key_F3,             Key_F4,         Key_F5, XXX,
-      ___, ___,                ___,               ___,                ___,            ___,    ___,
+      ___, ___,                ___,               ___,                ___,            ___,    Key_LeftParen,
       ___, M(MACRO_CTRL_SHFT), M(MACRO_CMD_CTRL), M(MACRO_OPTN_SHFT), M(MACRO_HYPER), ___,
       ___, M(MACRO_MEHA),      M(MACRO_MEHB),     M(MACRO_MEHC),      M(MACRO_MEHD),  ___,    ___,
       ___, ___, ___, ___,
       ___,
 
       ___,                Key_F6,                     Key_F7,                   Key_F8,                   Key_F9,                 Key_F10, Key_F11,
-      ___,                Key_Home,                   Key_PageDown,             Key_PageUp,               Key_End,                ___,     Key_F12,
+      Key_RightParen,     Key_Home,                   Key_PageDown,             Key_PageUp,               Key_End,                ___,     Key_F12,
                           Key_LeftArrow,              Key_DownArrow,            Key_UpArrow,              Key_RightArrow,         ___,     Consumer_PlaySlashPause,
       M(MACRO_FAT_ARROW), Consumer_ScanPreviousTrack, Consumer_VolumeDecrement, Consumer_VolumeIncrement, Consumer_ScanNextTrack, ___,     Consumer_Mute,
       ___, ___, ___, Key_Delete,
@@ -441,22 +438,6 @@ static void oneShotCtrlShftMacro(uint8_t keyState) {
   OneShot.inject(OSM(LeftShift), keyState);
 }
 
-void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
-                    kaleidoscope::TapDance::ActionType tap_dance_action) {
-  switch (tap_dance_index) {
-    case 0: {
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-                                Key_LeftBracket,
-                                Key_LeftParen);
-    }
-    case 1: {
-      return tapDanceActionKeys(tap_count, tap_dance_action,
-                                Key_RightBracket,
-                                Key_RightParen);
-    }
-  }
-}
-
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
     case MACRO_FAT_ARROW:
@@ -554,8 +535,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
   OneShot,
   EscapeOneShot,
   ActiveModColorEffect,
-  TopsyTurvy,
-  TapDance,
   LEDControl,
   LEDPaletteTheme,
   ColormapEffect
