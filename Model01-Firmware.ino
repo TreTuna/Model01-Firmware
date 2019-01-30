@@ -83,7 +83,7 @@ KEYMAPS(
     ),
 
     [FUNCTION] = KEYMAP_STACKED(
-      ___, Key_F1,             Key_F2,            Key_F3,             Key_F4,         Key_F5, XXX,
+      ___, Key_F1,             Key_F2,            Key_F3,             Key_F4,         Key_F5, ___,
       ___, ___,                ___,               ___,                ___,            ___,    Key_LeftParen,
       ___, M(MACRO_CTRL_SHFT), M(MACRO_CMD_CTRL), M(MACRO_OPTN_SHFT), M(MACRO_HYPER), ___,
       ___, M(MACRO_MEHA),      M(MACRO_MEHB),     M(MACRO_MEHC),      M(MACRO_MEHD),  ___,    ___,
